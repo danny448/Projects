@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <style media="screen">
+
+.Price{
+      display:flex;
+      margin-bottom:4rem;
+
+      }
+.Initial_Price{
+
+  margin-right:2rem;
+}
+
+
+body {
+    height: 100vh;
+    background-image: linear-gradient(to right bottom, #FBAC43, #FF8F00);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+}
+
+
+
+.container {
+    max-width: 80rem;
+    padding: 3rem 4rem 4rem 4rem;
+    border: 3.5rem solid #eee;
+    background-color: #fff;
+    box-shadow: 0 3rem 8rem rgba(0, 0, 0, .2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.Price_Label{
+    display: block;
+    margin-bottom: .75rem;
+    font-size: 1.2rem;
+}
+
+
+  .investment_Btc{
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        color: #fff;
+        background-color: #FC9D22;
+        cursor: pointer;
+
+    }
+
+
+    .result {
+        font-size: 1.4rem;
+        font-weight: 300;
+    }
+
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+  </style>
+  <body>
+<div class="container">
+    <div class="header">
+    <img src="img.png" alt="logo" height="70px" width="70px" class="header_logo">
+    <h1 class= "headerHeading">Bitcoin Calculator</h1>
+    <br>
+    <br>
+
+</div>
+
+
+<div class="Price">
+
+<div class="Initial_Price">
+   <label class="Price_Label">BTC/USD Initial Price</label>
+   <input type="number" class="Initial_Price_Input" placeholder="Initial Price in USD">
+</div>
+
+<div class="Current_Price">
+   <label class="Price_Label">BTC/USD Current Price</label>
+   <input type="number" class="Current_Price_Input" placeholder="Current Price in USD">
+  </div>
+</div>
+
+
+
+<div class="Investment">
+  <label class="Investment_Label">How many BTC/USD did you buy</label>
+  <input type="number" class="Investment_BTC" placeholder="Amount Of BTC">
+  <button class="investment_Btc">OK</button>
+</div>
+
+
+<p class="result">
+  <br>
+  <br>
+This is where the results will show.
+
+  </p>
+
+  </div>
+  </body>
+  <script type="text/javascript">
+
+    const calcGrowth = (pastVal,CurrentVal)  => (CurrentVal-pastVal)/pastVal *100;
+
+
+  document.querySelector('.investment_Btc').addEventListener('click', function () {
+
+  const btcUSDBought = document.querySelector('.Initial_Price_Input').value;
+
+  const btcUsdNOW = document.querySelector('.Current_Price_Input').value;
+
+  const BTC = document.querySelector('.Investment_BTC').value;
+
+
+  const Invested = BTC * btcUSDBought;
+  const Current = btcUsdNOW * BTC;
+
+  const Profit = Current - Invested;
+
+  const Growth = calcGrowth(Invested,Current);
+
+
+
+  let message = "";
+
+  if(Profit > 0){
+
+    message = `Great, you made a profit of $${Profit} (${Growth}%) `;
+    document.querySelector('.result').style.color="green";
+
+
+  }else if (Profit < 0){
+
+
+  message =  ` oh no! You're at a loss of $${Profit} (${Growth}%)`;
+  document.querySelector('.result').style.color="red";
+
+  }else{
+
+   message = ` You are breaking even $${Profit} (${Growth}%) `;
+
+  }
+
+  document.querySelector('.result').textContent = message;
+
+ });
+
+  </script>
+</html>
